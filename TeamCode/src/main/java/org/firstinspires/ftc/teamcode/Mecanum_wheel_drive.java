@@ -86,12 +86,9 @@ public class Mecanum_wheel_drive extends LinearOpMode {
         robot.init();
 
         waitForStart();
+        robot.flipspeed(3);
 
 
-
-
-        robot.flipspeed(2);
-        robot.flipspeed(1);
 
 
 

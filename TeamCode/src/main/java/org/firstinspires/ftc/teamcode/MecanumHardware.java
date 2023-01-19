@@ -95,31 +95,34 @@ public class MecanumHardware {
 
     }
 
-    public void flipspeed(int numberofconesremaining){
+    public void part1(int numberofconesremaining){
         if(numberofconesremaining == 2){
             intakeflip.setPosition(0.115);
         } else if (numberofconesremaining == 1){
-            intakeflip.setPosition(0.09);
+            intakeflip.setPosition(0.08);
         }
         claw.setPosition(0);
 
-        myOpMode.sleep(1000);
-        intakeflip.setPosition(0.50);
+        myOpMode.sleep(450);
+        intakeflip.setPosition(0.490);
         myOpMode.sleep(850);
         claw.setPosition(1);
         myOpMode.sleep(325);
         intakeflip.setPosition(0.1);
+    }
+    public void part2(){
         slider.setTargetPosition(700);
         slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slider.setPower(1);
         while(slider.isBusy()){
             myOpMode.telemetry.update();
+
         }
         myOpMode.telemetry.addData("Done","DOne");
         myOpMode.telemetry.update();
         slider.setPower(0);
         coneflip.setPosition(0);
-        myOpMode.sleep(750);
+        myOpMode.sleep(735);
         coneflip.setPosition(0.5);
 
 //        coneflip.setPower(1);
@@ -129,14 +132,42 @@ public class MecanumHardware {
 //        coneflip.setPower(-1);
 //        myOpMode.sleep(575);
 //        coneflip.setPower(0);
-        slider.setTargetPosition(25);
+        slider.setTargetPosition(0);
         slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slider.setPower(1);
+        intakeflip.setPosition(0.08);
         while(slider.isBusy()){
+            myOpMode.telemetry.addData("data",slider.getCurrentPosition());
+            myOpMode.telemetry.addData("data2",claw.getPosition());
             myOpMode.telemetry.update();
+
+
+            if(claw.getPosition() ==1){
+                claw.setPosition(0);
+                myOpMode.sleep(750);
+                intakeflip.setPosition(0.490);
+            }
+
+
+
+
         }
+//
+        claw.setPosition(1);
+        myOpMode.sleep(325);
+        intakeflip.setPosition(0.08);
         myOpMode.telemetry.addData("Done","DOne");
         myOpMode.telemetry.update();
+    }
+
+    public void flipspeed(int reps){
+        part1(2);
+        for (int i=0;i<=reps;i++)
+        {
+            part2();
+        }
+
+
     }
 
     /*    public void ForwardDistance(double Power,int distance) {
